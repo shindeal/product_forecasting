@@ -1,0 +1,8 @@
+pandas
+pyodbc
+statsmodels
+matplotlib
+numpy
+scikit-learn
+pmdarima
+streamlit
