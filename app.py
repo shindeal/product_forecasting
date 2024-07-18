@@ -18,7 +18,7 @@ st.title('Product Sales Forecasting')
 # Load your data from SQL
 @st.cache
 def load_data():
-    connection_string = r"Driver={SQL Server};Server=L1SQLS1601P\SpeedyDWAnalytic;Database=Speedy_Models;Trusted_Connection=yes;"
+    connection_string = r"Driver={ODBC Driver 17 for SQL Server};Server=L1SQLS1601P\SpeedyDWAnalytic;Database=Speedy_Models;Trusted_Connection=yes;"
     conn = pyodbc.connect(connection_string)
     query = """
     SELECT  [Status], [Product key], [Start Date],
