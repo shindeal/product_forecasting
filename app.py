@@ -12,7 +12,7 @@ from statsmodels.tsa.statespace.sarimax import SARIMAX
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.metrics import mean_squared_error, mean_absolute_error
-from pmdarima import auto_arima
+#from pmdarima import auto_arima
 
 st.title('Product Sales Forecasting')
 
@@ -65,16 +65,16 @@ y_train = train['Count']
 y_test = test['Count']
 
 # Fit the auto-ARIMA model
-auto_arima_model = auto_arima(y_train, seasonal=True, m=12, trace=True, error_action='ignore', suppress_warnings=True)
-st.write(f"Auto-ARIMA summary for {product_key}:\n", auto_arima_model.summary())
+#auto_arima_model = auto_arima(y_train, seasonal=True, m=12, trace=True, error_action='ignore', suppress_warnings=True)
+#st.write(f"Auto-ARIMA summary for {product_key}:\n", auto_arima_model.summary())
 
 # Generate predictions for the test data
-y_pred_arima = auto_arima_model.predict(n_periods=len(test))
-test['Predicted_ARIMA'] = y_pred_arima
+#y_pred_arima = auto_arima_model.predict(n_periods=len(test))
+#test['Predicted_ARIMA'] = y_pred_arima
 
 # Calculate RMSE and MAE for auto-ARIMA
-rmse_arima = np.sqrt(mean_squared_error(y_test, y_pred_arima))
-mae_arima = mean_absolute_error(y_test, y_pred_arima)
+#rmse_arima = np.sqrt(mean_squared_error(y_test, y_pred_arima))
+#mae_arima = mean_absolute_error(y_test, y_pred_arima)
 
 # Fit the SARIMAX model
 sarimax_model = SARIMAX(y_train, order=(0, 0, 1), seasonal_order=(0, 0, 1, 12))
@@ -90,16 +90,16 @@ mae_sarimax = mean_absolute_error(y_test, y_pred_sarimax)
 
 # Display results
 st.write(f"Product: {product_key}")
-st.write(f"RMSE for auto-ARIMA: {rmse_arima}")
-st.write(f"MAE for auto-ARIMA: {mae_arima}")
+#st.write(f"RMSE for auto-ARIMA: {rmse_arima}")
+#st.write(f"MAE for auto-ARIMA: {mae_arima}")
 st.write(f"RMSE for SARIMAX: {rmse_sarimax}")
 st.write(f"MAE for SARIMAX: {mae_sarimax}")
 
 # Forecast for the next 6 months using auto-ARIMA
-forecast_steps = 6
-forecast_arima = auto_arima_model.predict(n_periods=forecast_steps)
-forecast_index = pd.date_range(start=test_end_date + pd.DateOffset(days=1), periods=forecast_steps, freq='MS')
-forecast_df_arima = pd.DataFrame(forecast_arima.values, index=forecast_index, columns=['Forecast_ARIMA'])
+#forecast_steps = 6
+#forecast_arima = auto_arima_model.predict(n_periods=forecast_steps)
+#forecast_index = pd.date_range(start=test_end_date + pd.DateOffset(days=1), periods=forecast_steps, freq='MS')
+#forecast_df_arima = pd.DataFrame(forecast_arima.values, index=forecast_index, columns=['Forecast_ARIMA'])
 
 # Forecast for the next 6 months using SARIMAX
 forecast_sarimax = sarimax_model_fit.forecast(steps=forecast_steps)
@@ -109,7 +109,7 @@ forecast_df_sarimax = pd.DataFrame(forecast_sarimax.values, index=forecast_index
 plt.figure(figsize=(14, 7))
 plt.plot(train.index, y_train, label='Training Data')
 plt.plot(test.index, y_test, label='Actual Test Data')
-plt.plot(test.index, y_pred_arima, label='Predicted ARIMA', color='red')
+#plt.plot(test.index, y_pred_arima, label='Predicted ARIMA', color='red')
 plt.plot(test.index, y_pred_sarimax, label='Predicted SARIMAX', color='green')
 plt.legend()
 plt.title(f"Product: {product_key} - Actual vs Predicted")
@@ -120,7 +120,7 @@ plt.ylabel('Count')
 st.pyplot(plt)
 
 # Display forecasted values
-st.write(f"Forecasted values for {product_key} using auto-ARIMA:\n", forecast_df_arima)
+#st.write(f"Forecasted values for {product_key} using auto-ARIMA:\n", forecast_df_arima)
 st.write(f"Forecasted values for {product_key} using SARIMAX:\n", forecast_df_sarimax)
 
 
