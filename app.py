@@ -16,7 +16,8 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error
 st.title('Product Sales Forecasting')
 
 # Load your data from SQL
-@st.cache
+#@st.cache
+@st.cache_resource
 def load_data():
     connection_string = r"Driver={ODBC Driver 17 for SQL Server};Server=L1SQLS1601P\SpeedyDWAnalytic;Database=Speedy_Models;Trusted_Connection=yes;"
     conn = pyodbc.connect(connection_string)
